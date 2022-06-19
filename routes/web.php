@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use App\Http\Livewire\Admin\AdminAddServiceCategoryComponent;
 use App\Http\Livewire\Admin\AdminAddServiceComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
@@ -12,6 +13,7 @@ use App\Http\Livewire\Cliente\ClienteDashboardComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\Prestadore\PrestadoreDashboardComponent;
 use App\Http\Livewire\ServiceCategoriesComponent;
+use App\Http\Livewire\ServiceDetailsComponent;
 use App\Http\Livewire\ServicesByCategoryComponent;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +50,14 @@ Route::get('/',HomeComponent::class)->name('home');
 Route::get('/service-categories', ServiceCategoriesComponent::class)->name('home.service_categories');
 /* SERVIÇOSPORCATEGORIA */
 Route::get('/{category_slug}/services',ServicesByCategoryComponent::class)->name('home.services_by_category');
+/* DETALHES SERVIÇOS */
+Route::get('/service/{service_slug}',ServiceDetailsComponent::class)->name('home.service_details');
+/* BUSCA */
+Route::get('/autocomplete',[SearchController::class,'autocomplete'])->name('autocomplete');
+Route::post('/search',[SearchController::class,'searchService'])->name('searchService');
+
+
+
 /* ROTAS DO ADMIN */
 Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function() {
     Route::get('/admin/dashboard',AdminDashboardComponent::class)->name('admin.dashboard');

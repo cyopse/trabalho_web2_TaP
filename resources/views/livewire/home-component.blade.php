@@ -13,7 +13,8 @@
                     <p class="lead" style="color: black;">Contrate serviços pelos melhores preços do mercado</p>
                 </div>
                 <div class="filter-header">
-                    <form id="sform" action="searchservices" method="post">                      
+                    <form id="sform" action="{{route('searchService')}}" method="post">
+                        @csrf                     
                         <input type="text" id="q" name="q" required="required" placeholder="Pesquise um Serviço"
                             class="input-large typeahead" autocomplete="off">
                         <input type="submit" name="submit" value="Pesquisar">
@@ -31,25 +32,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <ul id="sponsors" class="tooltip-hover">
-                                <li data-toggle="tooltip" title="" data-original-title="Ar Condicionado"> 
-                                    <a href=""><img src="{{ asset('images/sercat/service-icon.png') }}" alt="Ar Condicionado"></a>
-                                </li>
-
-                                <li data-toggle="tooltip" title="" data-original-title="Eletrodomesticos"> 
-                                    <a href=""><img src="{{ asset('images/sercat/service-icon.png') }}" alt="Eletrodomesticos"></a>
-                                </li>
-
-                                <li data-toggle="tooltip" title="" data-original-title="Necessidades de Casa"> 
-                                    <a href=""><img src="{{ asset('images/sercat/service-icon.png') }}" alt="Necessidades de Casa"></a>
-                                </li>
-
-                                <li data-toggle="tooltip" title="" data-original-title="Limpeza"> 
-                                    <a href=""><img src="{{ asset('images/sercat/service-icon.png') }}" alt="Limpeza"></a>
-                                </li>
-
-                                <li data-toggle="tooltip" title="" data-original-title="Serviços Especiais"> 
-                                    <a href=""><img src="{{ asset('images/sercat/service-icon.png') }}" alt="Serviços Especiais"></a>
-                                </li>
+                                @foreach($scategories as $scategory)
+                                    <li data-toggle="tooltip" title="" data-original-title="{{$scategory->name}}"> 
+                                        <a href="{{route('home.services_by_category',['category_slug'=>$scategory->slug])}}">
+                                            <img src="{{ asset('images/categories') }}/{{$scategory->image}}" alt="{{$scategory->name}}">
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -69,74 +58,25 @@
                             </div>
                         </div>
                         <div class="portfolioContainer" style="margin-top: -50px;">
+                        @foreach($fservices as $service)                     
                             <div class="col-xs-6 col-sm-4 col-md-3 hsgrids"
                                 style="padding-right: 5px;padding-left: 5px;">
-                                <a class="g-list" href="">
+                                <a class="g-list" href="{{route('home.service_details',['service_slug'=>$service->slug])}}">
                                     <div class="img-hover">
-                                        <img src="{{ asset('images/services/thumbnails/thumbnail.jpg') }}" alt="Limpeza ar condicionado"
+                                        <img src="{{ asset('images/services/thumbnails') }}/{{$service->thumbnail}}" alt="{{$service->name}}"
                                             class="img-responsive">
                                     </div>
                                     <div class="info-gallery">
-                                        <h3>Limpeza de ar-condicionado</h3>
+                                        <h3>{{$service->name}}</h3>
                                         <hr class="separator">
-                                        <p>Limpeza Completa</p>
-                                        <div class="content-btn"><a href=""
+                                        <p>{{$service->tagline}}</p>
+                                        <div class="content-btn"><a href="{{route('home.service_details',['service_slug'=>$service->slug])}}"
                                                 class="btn btn-primary">Contrate</a></div>
-                                        <div class="price"><span>&#36;</span><b>Por</b>1.500</div>
+                                        <div class="price"><span></span><b>Por</b>R$: {{$service->price}}</div>
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-xs-6 col-sm-4 col-md-3 hsgrids"
-                                style="padding-right: 5px;padding-left: 5px;">
-                                <a class="g-list" href="">
-                                    <div class="img-hover">
-                                        <img src="{{ asset('images/services/thumbnails/thumbnail.jpg') }}" alt="Pintura Geladeira"
-                                            class="img-responsive">
-                                    </div>
-                                    <div class="info-gallery">
-                                        <h3>Pintura</h3>
-                                        <hr class="separator">
-                                        <p>Pintura de Geladeira</p>
-                                        <div class="content-btn"><a href=""
-                                                class="btn btn-primary">Contrate</a></div>
-                                        <div class="price"><span>&#36;</span><b>Por</b>320</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-sm-4 col-md-3 hsgrids"
-                                style="padding-right: 5px;padding-left: 5px;">
-                                <a class="g-list" href="">
-                                    <div class="img-hover">
-                                        <img src="{{ asset('images/services/thumbnails/thumbnail.jpg') }}" alt="Automação Residencial"
-                                            class="img-responsive">
-                                    </div>
-                                    <div class="info-gallery">
-                                        <h3>Automação</h3>
-                                        <hr class="separator">
-                                        <p>Automação Residencial</p>
-                                        <div class="content-btn"><a href=""
-                                                class="btn btn-primary">Contrate</a></div>
-                                        <div class="price"><span>&#36;</span><b>Por</b>25.000</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-sm-4 col-md-3 hsgrids"
-                                style="padding-right: 5px;padding-left: 5px;">
-                                <a class="g-list" href="">
-                                    <div class="img-hover">
-                                        <img src="{{ asset('images/services/thumbnails/thumbnail.jpg') }}" alt="Lavagem a seco"
-                                            class="img-responsive">
-                                    </div>
-                                    <div class="info-gallery">
-                                        <h3>Limpeza</h3>
-                                        <hr class="separator">
-                                        <p>Limpeza de sofá</p>
-                                        <div class="content-btn"><a href=""
-                                                class="btn btn-primary">Contrate</a></div>
-                                        <div class="price"><span>&#36;</span><b>Por</b>350</div>
-                                    </div>
-                                </a>
-                            </div>
+				        @endforeach
                         </div>
                     </div>
                 </div>
@@ -153,83 +93,22 @@
                                         <span class="line"></span>
                                     </p>
 
-                                    <p>Encontre uma ampla variedade de serviços para sua casa.</p>
+                                    <p>Encontre uma ampla variedade de serviços.</p>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <ul class="services-lines">
+                                    @foreach($fscategories as $fscategory)
                                     <li>
-                                        <a href="">
+                                        <a href="{{route('home.services_by_category',['category_slug'=>$fscategory->slug])}}">
                                             <div class="item-service-line">
                                                 <i class="fa"><img class="icon-img"
-                                                        src="{{ asset('images/sercat/service-icon.png') }}"></i>
-                                                <h5>Ar-condicionado</h5>
+                                                        src="{{ asset('images/categories') }}/{{$fscategory->image}}"></i>
+                                                <h5>{{$fscategory->name}}</h5>
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="">
-                                            <div class="item-service-line">
-                                                <i class="fa"><img class="icon-img"
-                                                        src="{{ asset('images/sercat/service-icon.png') }}"></i>
-                                                <h5>Elétrodomesticos</h5>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <div class="item-service-line">
-                                                <i class="fa"><img class="icon-img"
-                                                        src="{{ asset('images/sercat/service-icon.png') }}"></i>
-                                                <h5>Necessidades de Casa</h5>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <div class="item-service-line">
-                                                <i class="fa"><img class="icon-img"
-                                                        src="{{ asset('images/sercat/service-icon.png') }}"></i>
-                                                <h5>Limpeza</h5>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <div class="item-service-line">
-                                                <i class="fa"><img class="icon-img"
-                                                        src="{{ asset('images/sercat/service-icon.png') }}"></i>
-                                                <h5>Contadores</h5>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <div class="item-service-line">
-                                                <i class="fa"><img class="icon-img"
-                                                        src="{{ asset('images/sercat/service-icon.png') }}"></i>
-                                                <h5>Computadores e Celulares</h5>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <div class="item-service-line">
-                                                <i class="fa"><img class="icon-img"
-                                                        src="{{ asset('images/sercat/service-icon.png') }}"></i>
-                                                <h5>Alugueis</h5>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <div class="item-service-line">
-                                                <i class="fa"><img class="icon-img"
-                                                        src="{{ asset('images/sercat/service-icon.png') }}"></i>
-                                                <h5>Automação</h5>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -247,87 +126,38 @@
                     </div>
                 </div>
                 <div id="boxes-carousel">
+                    @foreach($aservices as $aservice)
                     <div>
-                        <a class="g-list" href="">
+                        <a class="g-list" href="{{route('home.service_details',['service_slug'=>$aservice->slug])}}">
                             <div class="img-hover">
-                                <img src="{{ asset('images/services/thumbnails/thumbnail.jpg') }}" alt="" class="img-responsive">
+                                <img src="{{asset('images/services/thumbnails')}}/{{$aservice->thumbnail}}" alt="{{$aservice->name}}" class="img-responsive">
                             </div>
 
                             <div class="info-gallery">
-                                <h3>Limpeza</h3>
+                                <h3>{{$aservice->name}}</h3>
                                 <hr class="separator">
-                                <p>Limpeza de Piscina</p>
-                                <div class="content-btn"><a href=""
+                                <p>{{$aservice->tagline}}</p>
+                                <div class="content-btn"><a href="{{route('home.service_details',['service_slug'=>$aservice->slug])}}"
                                         class="btn btn-primary">Contrate</a></div>
-                                <div class="price"><span>&#36;</span><b>Por</b>250</div>
+                                <div class="price"><span>&#36;</span><b>Por</b>R$: {{$aservice->price}}</div>
                             </div>
                         </a>
                     </div>
-                    <div>
-                        <a class="g-list" href="">
-                            <div class="img-hover">
-                                <img src="{{ asset('images/services/thumbnails/thumbnail.jpg') }}" alt="" class="img-responsive">
-                            </div>
-
-                            <div class="info-gallery">
-                                <h3>Necessidades de Casa</h3>
-                                <hr class="separator">
-                                <p>Dedetização</p>
-                                <div class="content-btn"><a href=""
-                                        class="btn btn-primary">Contrate</a></div>
-                                <div class="price"><span>&#36;</span><b>Por</b>430</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div>
-                        <a class="g-list" href="">
-                            <div class="img-hover">
-                                <img src="{{ asset('images/services/thumbnails/thumbnail.jpg') }}" alt="" class="img-responsive">
-                            </div>
-
-                            <div class="info-gallery">
-                                <h3>Elétrodomesticos</h3>
-                                <hr class="separator">
-                                <p>Manutenção de fogão</p>
-                                <div class="content-btn"><a href="service-details/dining-chair-shampooing.html"
-                                        class="btn btn-primary">Contrate</a></div>
-                                <div class="price"><span>&#36;</span><b>Por</b>820</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div>
-                        <a class="g-list" href="">
-                            <div class="img-hover">
-                                <img src="{{ asset('images/services/thumbnails/thumbnail.jpg') }}" alt="" class="img-responsive">
-                            </div>
-
-                            <div class="info-gallery">
-                                <h3>Limpeza</h3>
-                                <hr class="separator">
-                                <p>Limpeza de Tapete</p>
-                                <div class="content-btn"><a href="service-details/carpet-shampooing.html"
-                                        class="btn btn-primary">Contrate</a></div>
-                                <div class="price"><span>&#36;</span><b>Por</b>220</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div>
-                        <a class="g-list" href="">
-                            <div class="img-hover">
-                                <img src="{{ asset('images/services/thumbnails/thumbnail.jpg') }}" alt="" class="img-responsive">
-                            </div>
-
-                            <div class="info-gallery">
-                                <h3>Ar-Condicionado</h3>
-                                <hr class="separator">
-                                <p>Instalação</p>
-                                <div class="content-btn"><a href="service-details/fabric-sofa-shampooing.html"
-                                        class="btn btn-primary">Contrate</a></div>
-                                <div class="price"><span>&#36;</span><b>Por</b>280</div>
-                            </div>
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
 </div>
+
+@push('scripts')
+    <script type="text/javascript">
+        var path = "{{route('autocomplete')}}";
+        $('input.typeahead').typeahead({
+            source: function(query, process) {
+                return $.get(path, {query:query}, function(data) {
+                    return process(data);
+                });
+            }
+        });
+    </script>
+@endpush

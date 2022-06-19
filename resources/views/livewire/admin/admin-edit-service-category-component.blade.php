@@ -70,6 +70,17 @@
                                                 @endif
                                             </div>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="featured" class="control-label col-sm-3">Destaque</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="featured" wire:model="featured">
+                                                    <option value="0">Não</option>
+                                                    <option value="1">Sim</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                         <button type="submit" class="btn btn-success pull-right">Editar Categoria</button>
                                     </form>
                                 </div>

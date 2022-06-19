@@ -110,6 +110,17 @@
                                                 @enderror
                                             </div>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="discount" class="control-label col-sm-3">Destaque</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" wire:model="featured">
+                                                    <option value="0">Não</option>
+                                                    <option value="1">Sim</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <label for="description" class="control-label col-sm-3">Descrição</label>
                                             <div class="col-sm-9">

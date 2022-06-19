@@ -53,6 +53,7 @@
                                             <th>Nome</th>
                                             <th>Preço</th>
                                             <th>Status</th>
+                                            <th>Destaque</th>
                                             <th>Categoria</th>
                                             <th>Criado em</th>
                                             <th>Ações</th>
@@ -70,6 +71,13 @@
                                                     Ativo
                                                 @else
                                                     Inativo
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($service->featured)
+                                                    Sim
+                                                @else
+                                                    Não
                                                 @endif
                                             </td>
                                             <td>{{$service->category->name}}</td>
