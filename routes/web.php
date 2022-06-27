@@ -15,6 +15,8 @@ use App\Http\Livewire\Prestadore\PrestadoreDashboardComponent;
 use App\Http\Livewire\ServiceCategoriesComponent;
 use App\Http\Livewire\ServiceDetailsComponent;
 use App\Http\Livewire\ServicesByCategoryComponent;
+use App\Http\Livewire\Sprovider\EditSproviderProfileComponent;
+use App\Http\Livewire\Sprovider\SproviderProfileComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,6 +82,8 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function() {
 /* ROTAS DO PRESTADOR */
 Route::middleware(['auth:sanctum', 'verified', 'authprestadore'])->group(function() {
     Route::get('/prestadore/dashboard',PrestadoreDashboardComponent::class)->name('prestadore.dashboard');
+    Route::get('/sprovider/profile',SproviderProfileComponent::class)->name('sprovider.profile');
+    Route::get('/sprovider/profile/edit', EditSproviderProfileComponent::class)->name('sprovider.edit_profile');
 });
 
 /* ROTAS DO CLIENTE */
